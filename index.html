@@ -19,7 +19,41 @@
             flex-direction: column;
             align-items: center;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
         }
+
+        /* ==========================================
+           飘落爱心特效样式 (Falling Hearts & Kisses)
+           ========================================== */
+        .falling-heart {
+            position: fixed;
+            bottom: -50px;
+            z-index: 999;
+            user-select: none;
+            pointer-events: none;
+            font-size: 20px;
+            animation: floatUp 4.5s linear forwards;
+            opacity: 0.85;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) scale(0.6) rotate(0deg);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.9;
+            }
+            85% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-105vh) translateX(var(--random-x)) scale(1.2) rotate(var(--random-rotate));
+                opacity: 0;
+            }
+        }
+
         .container {
             max-width: 800px;
             width: 100%;
@@ -31,6 +65,8 @@
             padding: 40px 20px;
             margin-top: 20px;
             text-align: center;
+            position: relative;
+            z-index: 2;
         }
         h1 {
             color: #ff477e;
@@ -182,9 +218,7 @@
             color: #ff477e;
         }
 
-        /* ==========================================
-           萌宠身份证卡片样式 (ID Card)
-           ========================================== */
+        /* 萌宠身份证卡片样式 (ID Card) */
         #modal-cards-container {
             display: flex;
             flex-direction: column;
@@ -500,6 +534,44 @@
 
     <script>
         // ==========================================
+        // 飘落爱心与亲亲特效逻辑
+        // ==========================================
+        const symbols = ["❤️", "💖", "💕", "😘 亲亲", "💋 亲亲", "✨", "💗"];
+        
+        function createFallingHeart() {
+            const heart = document.createElement("div");
+            heart.className = "falling-heart";
+            
+            // 随机选择爱心或亲亲文字
+            heart.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+            
+            // 随机横向生成位置（0% ~ 100% 屏幕宽度）
+            heart.style.left = Math.random() * 95 + "vw";
+            
+            // 随机大小和飘动轨迹
+            const size = Math.random() * 14 + 16; // 16px ~ 30px
+            heart.style.fontSize = size + "px";
+            
+            const randomX = (Math.random() - 0.5) * 150 + "px"; // 左右飘动偏移量
+            const randomRotate = (Math.random() - 0.5) * 60 + "deg"; // 旋转角度
+            heart.style.setProperty("--random-x", randomX);
+            heart.style.setProperty("--random-rotate", randomRotate);
+            
+            // 随机动画时长（3.5秒 ~ 5.5秒）
+            heart.style.animationDuration = (Math.random() * 2 + 3.5) + "s";
+            
+            document.body.appendChild(heart);
+            
+            // 动画结束后自动清理 DOM 节点，避免内存占用
+            setTimeout(() => {
+                heart.remove();
+            }, 5500);
+        }
+
+        // 每隔 350 毫秒生成一个（大约一秒钟稳定飘落 2 到 3 个）
+        setInterval(createFallingHeart, 350);
+
+        // ==========================================
         // 旅行相册数据配置
         // ==========================================
         const albumsData = {
@@ -646,7 +718,6 @@
                         idNo: "DJ-006",
                         name: "吉伊",
                         emoji: "✨",
-                        
                         avatar: "jiyi1.png",
                         tags: ["🐹 小可爱族", "✨ 仓鼠"],
                         fields: [
@@ -680,7 +751,6 @@
                 ],
                 images: ["kapibala1.jpg"]
             },
-            // 👇 新增 1：花小美（直接修改下面的文字和图片名即可）
             huaxiaomei: {
                 title: "花小美的id card 🌸",
                 cards: [
@@ -701,7 +771,6 @@
                 ],
                 images: ["huaxiaomei1.jpg"]
             },
-            // 👇 新增 2：小多（直接修改下面的文字和图片名即可）
             xiaoduo: {
                 title: "小多的id card 🐶",
                 cards: [
@@ -710,7 +779,7 @@
                         name: "小多",
                         emoji: "🐶",
                         avatar: "xiaoduo1.jpg",
-                        tags: ["🐾 多肉族", "✨ 乖巧"],
+                        tags: ["🐾 多肉族", "✨ 乖"],
                         fields: [
                             { label: "🎂 生日", value: "待录入" },
                             { label: "❤️ 爱好", value: "待录入" },
@@ -722,7 +791,6 @@
                 ],
                 images: ["xiaoduo1.jpg"]
             },
-            // 👇 新增 3：熊小星（直接修改下面的文字和图片名即可）
             xiongxiaoxing: {
                 title: "熊小星的id card ⭐",
                 cards: [
@@ -731,7 +799,7 @@
                         name: "熊小星",
                         emoji: "⭐",
                         avatar: "xiongxiaoxing1.jpg",
-                        tags: ["🐻 狗熊族", "⭐ 闪亮"],
+                        tags: ["🐻 狗熊族", "⭐ 爱吃东西"],
                         fields: [
                             { label: "🎂 生日", value: "待录入" },
                             { label: "❤️ 爱好", value: "待录入" },
@@ -760,7 +828,17 @@
         setInterval(updateTimer, 1000);
         updateTimer();
 
-        // 智能图片后缀容错：如果 .jpg 加载失败，自动尝试 .png / .jpeg / .JPG / .PNG
+        // 生成可爱的粉色占位图
+        const PLACEHOLDER_SVG = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(`
+            <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+                <rect width="300" height="300" fill="#fff0f3"/>
+                <rect x="16" y="16" width="268" height="268" rx="14" fill="none" stroke="#ffb3c6" stroke-width="3" stroke-dasharray="8,8"/>
+                <text x="150" y="138" text-anchor="middle" font-size="42">📷</text>
+                <text x="150" y="182" text-anchor="middle" fill="#ff5c8a" font-size="16" font-family="sans-serif" font-weight="bold">照片待上传</text>
+            </svg>
+        `);
+
+        // 智能图片后缀容错
         function bindSmartImage(imgEl, originalSrc, isAvatar = false) {
             const baseName = originalSrc.replace(/\.[^/.]+$/, "");
             const fallbackExts = [".png", ".jpg", ".jpeg", ".PNG", ".JPG", ".webp"];
@@ -779,37 +857,33 @@
                         return;
                     }
                 }
-                // 所有后缀都找不到时，优雅降级
+                imgEl.onerror = null;
                 if (isAvatar) {
                     imgEl.style.display = "none";
                 } else {
+                    imgEl.src = PLACEHOLDER_SVG;
                     imgEl.onclick = null;
                     imgEl.style.cursor = "default";
-                    imgEl.alt = "（图片待上传）";
                 }
             };
         }
 
-        // 给主页封面的 3 张图也加上智能后缀识别
         document.querySelectorAll(".photo-card img").forEach(img => {
             const rawSrc = img.getAttribute("src");
             bindSmartImage(img, rawSrc, false);
-            img.onclick = null; // 保持点击由外层 photo-card 触发相册
+            img.onclick = null;
         });
 
-        // 打开旅行相册
         function openAlbum(category) {
             const album = albumsData[category];
             if (album) renderModal(album.title, [], album.images);
         }
 
-        // 打开玩偶身份证弹窗
         function openKid(kidKey) {
             const kid = kidsData[kidKey];
             if (kid) renderModal(kid.title, kid.cards, kid.images);
         }
 
-        // 渲染弹窗
         function renderModal(title, cards, images) {
             const modal = document.getElementById("modal");
             const titleEl = document.getElementById("modal-title");
