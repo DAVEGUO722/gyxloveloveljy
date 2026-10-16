@@ -200,7 +200,6 @@
             position: relative;
             text-align: left;
         }
-        /* 右下角防伪水印 */
         .id-card::after {
             content: "🐾";
             position: absolute;
@@ -228,7 +227,6 @@
             gap: 18px;
             align-items: center;
         }
-        /* 头像框区域 */
         .id-avatar-wrap {
             position: relative;
             flex-shrink: 0;
@@ -275,7 +273,6 @@
             font-size: 0.95rem;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
-        /* 右侧档案信息 */
         .id-info {
             flex: 1;
             min-width: 0;
@@ -292,7 +289,6 @@
             font-weight: 800;
             color: #d6336c;
         }
-        /* 小标签样式 */
         .id-tags {
             display: flex;
             flex-wrap: wrap;
@@ -308,7 +304,6 @@
             font-size: 0.76rem;
             font-weight: 600;
         }
-        /* 属性网格 */
         .id-fields {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -328,7 +323,6 @@
             font-weight: 600;
             margin-right: 4px;
         }
-        /* 底部签名/简介栏 */
         .id-bio {
             margin: 0 16px 14px;
             padding: 8px 12px;
@@ -381,7 +375,6 @@
             box-shadow: 0 6px 15px rgba(255, 71, 126, 0.2);
         }
 
-        /* 手机端自适应：小屏幕下头像居中置顶 */
         @media (max-width: 480px) {
             .id-card-body {
                 flex-direction: column;
@@ -478,8 +471,9 @@
                 <span class="kid-tag" onclick="openKid('suki')">suki</span>
                 <span class="kid-tag" onclick="openKid('jiyi')">吉伊</span>
                 <span class="kid-tag" onclick="openKid('kapibala')">卡皮巴拉</span>
-                <span class="kid-tag" onclick="openKid('kapibala')">花小美</span>
-                <span class="kid-tag" onclick="openKid('kapibala')">小多</span>
+                <span class="kid-tag" onclick="openKid('huaxiaomei')">花小美</span>
+                <span class="kid-tag" onclick="openKid('xiaoduo')">小多</span>
+                <span class="kid-tag" onclick="openKid('xiongxiaoxing')">熊小星</span>
             </div>
         </footer>
     </div>
@@ -620,7 +614,7 @@
                             { label: "✨ 特点", value: "热情似火" },
                             { label: "📫 邮箱", value: "无" }
                         ],
-                        bio: "💡 家族评价：时刻保持红红火火的活力小崽"
+                        bio: "💡 乖"
                     }
                 ],
                 images: ["xiaohuoren1.jpg", "xiaohuoren2.jpg"]
@@ -652,7 +646,8 @@
                         idNo: "DJ-006",
                         name: "吉伊",
                         emoji: "✨",
-                        avatar: "jiyi1.jpg",
+                        
+                        avatar: "jiyi1.png",
                         tags: ["🐹 小可爱族", "✨ 治愈系"],
                         fields: [
                             { label: "🎂 生日", value: "待录入" },
@@ -663,10 +658,10 @@
                         bio: "💡 有自己的讨伐棒"
                     }
                 ],
-                images: ["jiyi1.jpg"]
+                images: ["jiyi1.png"]
             },
             kapibala: {
-                title: "卡皮巴拉的居民档案 🍊",
+                title: "卡皮巴拉的id card 🍊",
                 cards: [
                     {
                         idNo: "DJ-007",
@@ -680,10 +675,73 @@
                             { label: "✨ 特点", value: "情绪极其稳定" },
                             { label: "📫 邮箱", value: "无" }
                         ],
-                        bio: "💡 萌"
+                        bio: "💡 萌 会学爸爸说话"
                     }
                 ],
                 images: ["kapibala1.jpg"]
+            },
+            // 👇 新增 1：花小美（直接修改下面的文字和图片名即可）
+            huaxiaomei: {
+                title: "花小美的id card 🌸",
+                cards: [
+                    {
+                        idNo: "DJ-008",
+                        name: "花小美",
+                        emoji: "🌸",
+                        avatar: "huaxiaomei1.jpg",
+                        tags: ["🌸 花仙子", "♀ 母"],
+                        fields: [
+                            { label: "🎂 生日", value: "待录入" },
+                            { label: "❤️ 爱好", value: "待录入" },
+                            { label: "✨ 特点", value: "待录入" },
+                            { label: "📫 邮箱", value: "无" }
+                        ],
+                        bio: "💡 待录入"
+                    }
+                ],
+                images: ["huaxiaomei1.jpg"]
+            },
+            // 👇 新增 2：小多（直接修改下面的文字和图片名即可）
+            xiaoduo: {
+                title: "小多的id card 🐶",
+                cards: [
+                    {
+                        idNo: "DJ-009",
+                        name: "小多",
+                        emoji: "🐶",
+                        avatar: "xiaoduo1.jpg",
+                        tags: ["🐾 萌宠族", "✨ 乖巧"],
+                        fields: [
+                            { label: "🎂 生日", value: "待录入" },
+                            { label: "❤️ 爱好", value: "待录入" },
+                            { label: "✨ 特点", value: "待录入" },
+                            { label: "📫 邮箱", value: "无" }
+                        ],
+                        bio: "💡 爸爸自己领养的"
+                    }
+                ],
+                images: ["xiaoduo1.jpg"]
+            },
+            // 👇 新增 3：熊小星（直接修改下面的文字和图片名即可）
+            xiongxiaoxing: {
+                title: "熊小星的id card ⭐",
+                cards: [
+                    {
+                        idNo: "DJ-010",
+                        name: "熊小星",
+                        emoji: "⭐",
+                        avatar: "xiongxiaoxing1.jpg",
+                        tags: ["🐻 小熊族", "⭐ 闪亮"],
+                        fields: [
+                            { label: "🎂 生日", value: "待录入" },
+                            { label: "❤️ 爱好", value: "待录入" },
+                            { label: "✨ 特点", value: "待录入" },
+                            { label: "📫 邮箱", value: "无" }
+                        ],
+                        bio: "💡 自己乖乖的待在一边"
+                    }
+                ],
+                images: ["xiongxiaoxing1.jpg"]
             }
         };
 
@@ -702,6 +760,43 @@
         setInterval(updateTimer, 1000);
         updateTimer();
 
+        // 智能图片后缀容错：如果 .jpg 加载失败，自动尝试 .png / .jpeg / .JPG / .PNG
+        function bindSmartImage(imgEl, originalSrc, isAvatar = false) {
+            const baseName = originalSrc.replace(/\.[^/.]+$/, "");
+            const fallbackExts = [".png", ".jpg", ".jpeg", ".PNG", ".JPG", ".webp"];
+            let tryIndex = 0;
+
+            imgEl.src = originalSrc;
+            imgEl.onclick = function() {
+                openLightbox(imgEl.src);
+            };
+            imgEl.onerror = function() {
+                while (tryIndex < fallbackExts.length) {
+                    const nextCandidate = baseName + fallbackExts[tryIndex];
+                    tryIndex++;
+                    if (nextCandidate !== originalSrc) {
+                        imgEl.src = nextCandidate;
+                        return;
+                    }
+                }
+                // 所有后缀都找不到时，优雅降级
+                if (isAvatar) {
+                    imgEl.style.display = "none";
+                } else {
+                    imgEl.onclick = null;
+                    imgEl.style.cursor = "default";
+                    imgEl.alt = "（图片待上传）";
+                }
+            };
+        }
+
+        // 给主页封面的 3 张图也加上智能后缀识别
+        document.querySelectorAll(".photo-card img").forEach(img => {
+            const rawSrc = img.getAttribute("src");
+            bindSmartImage(img, rawSrc, false);
+            img.onclick = null; // 保持点击由外层 photo-card 触发相册
+        });
+
         // 打开旅行相册
         function openAlbum(category) {
             const album = albumsData[category];
@@ -714,7 +809,7 @@
             if (kid) renderModal(kid.title, kid.cards, kid.images);
         }
 
-        // 渲染弹窗（兼容旅行相册与玩偶身份证）
+        // 渲染弹窗
         function renderModal(title, cards, images) {
             const modal = document.getElementById("modal");
             const titleEl = document.getElementById("modal-title");
@@ -725,7 +820,6 @@
             titleEl.textContent = title;
             cardsContainer.innerHTML = "";
 
-            // 如果有身份证数据，生成萌宠身份证卡片
             if (cards && cards.length > 0) {
                 cards.forEach(card => {
                     const tagsHtml = (card.tags || [])
@@ -747,9 +841,7 @@
                             <div class="id-avatar-wrap">
                                 <div class="id-avatar-box">
                                     <span>${card.emoji || "🧸"}</span>
-                                    <img src="${card.avatar}" alt="${card.name}"
-                                         onclick="openLightbox('${card.avatar}')"
-                                         onerror="this.style.display='none'">
+                                    <img class="card-avatar-img" alt="${card.name}">
                                 </div>
                                 <div class="id-avatar-badge">${card.emoji || "🧸"}</div>
                             </div>
@@ -763,6 +855,8 @@
                         </div>
                         ${card.bio ? `<div class="id-bio">${card.bio}</div>` : ""}
                     `;
+                    const avatarImg = cardEl.querySelector(".card-avatar-img");
+                    bindSmartImage(avatarImg, card.avatar, true);
                     cardsContainer.appendChild(cardEl);
                 });
                 cardsContainer.style.display = "flex";
@@ -772,20 +866,11 @@
                 dividerEl.style.display = "none";
             }
 
-            // 渲染下方照片网格
             gridEl.innerHTML = "";
             images.forEach(imgSrc => {
                 const img = document.createElement("img");
-                img.src = imgSrc;
                 img.alt = title;
-                img.onclick = function() {
-                    openLightbox(imgSrc);
-                };
-                img.onerror = function() {
-                    this.onclick = null;
-                    this.style.cursor = "default";
-                    this.alt = "（图片待上传）";
-                };
+                bindSmartImage(img, imgSrc, false);
                 gridEl.appendChild(img);
             });
 
@@ -793,13 +878,11 @@
             document.body.style.overflow = "hidden";
         }
 
-        // 关闭弹窗
         function closeModal() {
             document.getElementById("modal").style.display = "none";
             document.body.style.overflow = "";
         }
 
-        // 打开大图预览
         function openLightbox(src) {
             const lightbox = document.getElementById("lightbox-modal");
             const lightboxImg = document.getElementById("lightbox-img");
@@ -807,12 +890,10 @@
             lightbox.style.display = "flex";
         }
 
-        // 关闭大图预览
         function closeLightbox() {
             document.getElementById("lightbox-modal").style.display = "none";
         }
 
-        // 支持按 Esc 键关闭弹窗
         document.addEventListener("keydown", function(e) {
             if (e.key === "Escape") {
                 const lightbox = document.getElementById("lightbox-modal");
@@ -826,4 +907,3 @@
     </script>
 </body>
 </html>
-
