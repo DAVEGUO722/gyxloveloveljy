@@ -23,9 +23,7 @@
             overflow-x: hidden;
         }
 
-        /* ==========================================
-           飘落爱心特效样式 (Falling Hearts & Kisses)
-           ========================================== */
+        /* 飘落爱心与亲亲特效样式 */
         .falling-heart {
             position: fixed;
             bottom: -50px;
@@ -68,17 +66,68 @@
             position: relative;
             z-index: 2;
         }
+
+        /* 标题区域与情侣互动按钮布局 */
+        .header-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
         h1 {
             color: #ff477e;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2.3rem;
             line-height: 1.3;
         }
+
+        /* 弹跳情侣按钮样式 */
+        .couple-btn {
+            background: #fff0f3;
+            border: 2px solid #ff758c;
+            color: #ff477e;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(255, 117, 140, 0.2);
+            transition: background 0.2s, color 0.2s;
+            user-select: none;
+            outline: none;
+        }
+        .couple-btn:hover {
+            background: #ff477e;
+            color: white;
+        }
+        /* 点击时的弹跳动画类 */
+        .bounce-anim {
+            animation: bounceEffect 0.4s ease;
+        }
+        @keyframes bounceEffect {
+            0% { transform: scale(1); }
+            40% { transform: scale(1.25) rotate(-5deg); }
+            70% { transform: scale(0.9) rotate(5deg); }
+            100% { transform: scale(1); }
+        }
+
+        /* 弹出的甜蜜提示文字气泡 */
+        #sweet-tip {
+            font-size: 0.95rem;
+            color: #ff477e;
+            height: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            transition: opacity 0.3s ease;
+        }
+
         .subtitle {
             font-size: 1.1rem;
             color: #666;
             margin-bottom: 30px;
         }
+
         /* 计时器样式 */
         .counter {
             background: #fff0f3;
@@ -96,6 +145,7 @@
             font-weight: bold;
             color: #333;
         }
+
         /* 照片墙样式 */
         .photo-section {
             margin-bottom: 30px;
@@ -422,6 +472,10 @@
                 text-align: left;
                 grid-template-columns: 1fr;
             }
+            .header-box {
+                flex-direction: column;
+                gap: 8px;
+            }
         }
 
         /* 大图预览弹窗 */
@@ -457,7 +511,16 @@
 <body>
 
     <div class="container">
-        <h1>Dave ❤️ Jane<br>郭亚轩 ❤️ 李佳仪</h1>
+        <!-- 带有情侣弹跳按钮的标题栏 -->
+        <div class="header-box">
+            <button class="couple-btn" id="dave-btn" onclick="triggerCoupleAction('dave')">👦 郭亚轩 (Dave)</button>
+            <h1>Dave ❤️ Jane<br>郭亚轩 ❤️ 李佳仪</h1>
+            <button class="couple-btn" id="jane-btn" onclick="triggerCoupleAction('jane')">👧 李佳仪 (Jane)</button>
+        </div>
+
+        <!-- 甜蜜互动气泡提示 -->
+        <div id="sweet-tip">✨ 谁乖谁萌谁按按钮✨</div>
+
         <p class="subtitle">老婆我现在肚子好饿你还在那上课</p>
 
         <!-- 计时器 -->
@@ -534,6 +597,42 @@
 
     <script>
         // ==========================================
+        // 顶部情侣按钮点击弹跳与气泡互动
+        // ==========================================
+        const daveTips = [
+            "👦 轩轩和美美吃汉堡🍔",
+            "👦 轩轩摸摸美美的头💖",
+            "👦 轩轩正在疯狂想念李佳仪美美中... ✈️",
+            "👦 轩轩宣布：爱美美一辈子🥰"
+        ];
+        const janeTips = [
+            "👧 美美和汉堡吃轩轩🍔",
+            "👧 美美摸摸轩轩的头😘💋",
+            "👧 美美正在疯狂想念郭亚轩轩轩中🐱",
+            "👧 美美宣布 爱轩轩一辈子🐱"
+        ];
+
+        function triggerCoupleAction(person) {
+            const btn = document.getElementById(person + "-btn");
+            const tipEl = document.getElementById("sweet-tip");
+
+            // 触发弹跳动画
+            btn.classList.remove("bounce-anim");
+            void btn.offsetWidth; // 触发重绘
+            btn.classList.add("bounce-anim");
+
+            // 随机显示对应的情话气泡
+            const tips = person === 'dave' ? daveTips : janeTips;
+            const randomTip = tips[Math.floor(Math.random() * tips.length)];
+            tipEl.textContent = randomTip;
+
+            // 顺便在点击位置附近多飞出两个爱心
+            for(let i=0; i<3; i++) {
+                setTimeout(createFallingHeart, i * 120);
+            }
+        }
+
+        // ==========================================
         // 飘落爱心与亲亲特效逻辑
         // ==========================================
         const symbols = ["❤️", "💖", "💕", "😘 亲亲", "💋 亲亲", "✨", "💗"];
@@ -541,34 +640,23 @@
         function createFallingHeart() {
             const heart = document.createElement("div");
             heart.className = "falling-heart";
-            
-            // 随机选择爱心或亲亲文字
             heart.innerText = symbols[Math.floor(Math.random() * symbols.length)];
-            
-            // 随机横向生成位置（0% ~ 100% 屏幕宽度）
             heart.style.left = Math.random() * 95 + "vw";
             
-            // 随机大小和飘动轨迹
-            const size = Math.random() * 14 + 16; // 16px ~ 30px
+            const size = Math.random() * 14 + 16;
             heart.style.fontSize = size + "px";
             
-            const randomX = (Math.random() - 0.5) * 150 + "px"; // 左右飘动偏移量
-            const randomRotate = (Math.random() - 0.5) * 60 + "deg"; // 旋转角度
+            const randomX = (Math.random() - 0.5) * 150 + "px";
+            const randomRotate = (Math.random() - 0.5) * 60 + "deg";
             heart.style.setProperty("--random-x", randomX);
             heart.style.setProperty("--random-rotate", randomRotate);
-            
-            // 随机动画时长（3.5秒 ~ 5.5秒）
             heart.style.animationDuration = (Math.random() * 2 + 3.5) + "s";
             
             document.body.appendChild(heart);
-            
-            // 动画结束后自动清理 DOM 节点，避免内存占用
-            setTimeout(() => {
-                heart.remove();
-            }, 5500);
+            setTimeout(() => { heart.remove(); }, 5500);
         }
 
-        // 每隔 350 毫秒生成一个（大约一秒钟稳定飘落 2 到 3 个）
+        // 每隔 350 毫秒生成一个爱心
         setInterval(createFallingHeart, 350);
 
         // ==========================================
@@ -779,14 +867,14 @@
                         name: "小多",
                         emoji: "🐶",
                         avatar: "xiaoduo1.jpg",
-                        tags: ["🐾 多肉族", "✨ 乖"],
+                        tags: ["🐾 多肉族", "✨ 乖巧"],
                         fields: [
                             { label: "🎂 生日", value: "待录入" },
                             { label: "❤️ 爱好", value: "待录入" },
                             { label: "✨ 特点", value: "待录入" },
                             { label: "📫 邮箱", value: "无" }
                         ],
-                        bio: "💡 爸爸自己领养的"
+                        bio: "💡 爸爸自己领养的 妈妈爱它"
                     }
                 ],
                 images: ["xiaoduo1.jpg"]
@@ -799,14 +887,14 @@
                         name: "熊小星",
                         emoji: "⭐",
                         avatar: "xiongxiaoxing1.jpg",
-                        tags: ["🐻 狗熊族", "⭐ 爱吃东西"],
+                        tags: ["🐻 狗熊族", "⭐ 闪亮"],
                         fields: [
                             { label: "🎂 生日", value: "待录入" },
                             { label: "❤️ 爱好", value: "待录入" },
                             { label: "✨ 特点", value: "待录入" },
                             { label: "📫 邮箱", value: "无" }
                         ],
-                        bio: "💡 自己乖乖的待在一边"
+                        bio: "💡 自己乖乖的待在一边爸爸妈妈在意它"
                     }
                 ],
                 images: ["xiongxiaoxing1.jpg"]
