@@ -25,6 +25,7 @@
             width: 100%;
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             padding: 40px 20px;
@@ -35,6 +36,7 @@
             color: #ff477e;
             font-size: 2.5rem;
             margin-bottom: 10px;
+            line-height: 1.3;
         }
         .subtitle {
             font-size: 1.1rem;
@@ -72,34 +74,34 @@
             background: white;
             padding: 10px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
         }
         .photo-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 71, 126, 0.15);
         }
         .photo-card img {
             width: 100%;
             height: 250px;
             object-fit: cover;
             border-radius: 8px;
-            cursor: pointer;
+            background: #fff0f3;
         }
-        .photo-desc a {
+        .photo-desc span {
             margin-top: 10px;
             font-size: 0.95rem;
             color: #ff5c8a;
-            text-decoration: none;
             font-weight: bold;
             display: inline-block;
             transition: color 0.2s;
-            cursor: pointer;
         }
-        .photo-desc a:hover {
+        .photo-card:hover .photo-desc span {
             color: #ff477e;
             text-decoration: underline;
         }
-        
+
         /* 底部孩子们样式 */
         footer {
             margin-top: 30px;
@@ -109,7 +111,7 @@
         .kids-title {
             font-weight: bold;
             color: #ff5c8a;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
         .kids-links {
             display: flex;
@@ -120,13 +122,13 @@
         .kid-tag {
             background: #fff0f3;
             color: #ff477e;
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
-            text-decoration: none;
             font-size: 0.9rem;
             border: 1px solid #ff758c;
             cursor: pointer;
             transition: all 0.2s;
+            user-select: none;
         }
         .kid-tag:hover {
             background: #ff477e;
@@ -151,7 +153,7 @@
         }
         .modal-content {
             background: white;
-            padding: 30px;
+            padding: 30px 24px;
             border-radius: 15px;
             max-width: 600px;
             width: 100%;
@@ -162,40 +164,46 @@
         }
         .modal-content h2 {
             color: #ff477e;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         .modal-desc {
-            color: #666;
-            font-size: 1rem;
+            color: #555;
+            font-size: 0.95rem;
             margin-bottom: 20px;
-            line-height: 1.5;
+            line-height: 1.7;
             background: #fff8f9;
-            padding: 10px;
-            border-radius: 8px;
+            border: 1px solid #ffe0e6;
+            padding: 12px 16px;
+            border-radius: 10px;
+            text-align: left;
+            white-space: pre-line;
         }
         .modal-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 220px));
+            justify-content: center;
             gap: 12px;
         }
         .modal-grid img {
             width: 100%;
-            height: 130px;
+            aspect-ratio: 1 / 1;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             transition: transform 0.2s;
+            background: #fff0f3;
         }
         .modal-grid img:hover {
             transform: scale(1.03);
         }
         .close-btn {
             position: absolute;
-            top: 15px;
-            right: 20px;
+            top: 12px;
+            right: 18px;
             font-size: 1.8rem;
             color: #aaa;
             cursor: pointer;
+            line-height: 1;
         }
         .close-btn:hover {
             color: #333;
@@ -219,6 +227,7 @@
             max-width: 90%;
             max-height: 85vh;
             border-radius: 8px;
+            object-fit: contain;
         }
         #lightbox-close {
             position: absolute;
@@ -247,24 +256,24 @@
             <h2 style="color: #ff5c8a; font-size: 1.5rem; margin-bottom: 15px;">memory</h2>
             <div class="photo-grid">
                 <!-- 照片 1 组 -->
-                <div class="photo-card">
-                    <img src="photo1.jpg" alt="李佳仪" onclick="openAlbum('first')">
+                <div class="photo-card" onclick="openAlbum('first')">
+                    <img src="photo1.jpg" alt="first trip">
                     <div class="photo-desc">
-                        <a onclick="openAlbum('first')">first trip ✈️ izu</a>
+                        <span>first trip ✈️ izu</span>
                     </div>
                 </div>
                 <!-- 照片 2 组 -->
-                <div class="photo-card">
-                    <img src="photo2.jpg" alt="李佳仪" onclick="openAlbum('chocolate')">
+                <div class="photo-card" onclick="openAlbum('chocolate')">
+                    <img src="photo2.jpg" alt="chocolate factory">
                     <div class="photo-desc">
-                        <a onclick="openAlbum('chocolate')">chocolate factory 🍰 sapporo</a>
+                        <span>chocolate factory 🍰 sapporo</span>
                     </div>
                 </div>
                 <!-- 照片 3 组 -->
-                <div class="photo-card">
-                    <img src="photo3.jpg" alt="地狱火" onclick="openAlbum('original')">
+                <div class="photo-card" onclick="openAlbum('original')">
+                    <img src="photo3.jpg" alt="original day">
                     <div class="photo-desc">
-                        <a onclick="openAlbum('original')">original day ✨ tokyo</a>
+                        <span>original day ✨ tokyo</span>
                     </div>
                 </div>
             </div>
@@ -286,27 +295,23 @@
     </div>
 
     <!-- 通用相册/玩偶弹窗 -->
-    <div id="modal" class="modal" onclick="closeModal(event)">
+    <div id="modal" class="modal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <span class="close-btn" onclick="closeModalDirect()">&times;</span>
+            <span class="close-btn" onclick="closeModal()">&times;</span>
             <h2 id="modal-title">标题</h2>
             <div id="modal-desc" class="modal-desc" style="display: none;"></div>
-            <div class="modal-grid" id="modal-images">
-                <!-- 动态填充照片 -->
-            </div>
+            <div class="modal-grid" id="modal-images"></div>
         </div>
     </div>
 
     <!-- 大图预览弹窗 -->
     <div id="lightbox-modal" onclick="closeLightbox()">
         <span id="lightbox-close">&times;</span>
-        <img id="lightbox-img" src="" alt="大图">
+        <img id="lightbox-img" src="" alt="大图" onclick="event.stopPropagation()">
     </div>
 
     <script>
-        // ==========================================
         // 旅行相册数据配置
-        // ==========================================
         const albumsData = {
             first: {
                 title: "first trip ✈️ izu 相册",
@@ -315,40 +320,38 @@
             chocolate: {
                 title: "chocolate factory 🍰 sapporo 相册",
                 images: [
-                    "photo2.jpg", "photo2_extra1.jpg", "photo2_extra2.jpg", 
+                    "photo2.jpg", "photo2_extra1.jpg", "photo2_extra2.jpg",
                     "photo2_extra3.jpg", "photo2_extra4.jpg", "photo2_extra5.jpg",
                     "photo2_extra6.jpg", "photo2_extra7.jpg", "photo2_extra8.jpg", "photo2_extra9.jpg"
                 ]
             },
             original: {
-                title: "original day ✨ tokyo相册",
+                title: "original day ✨ tokyo 相册",
                 images: ["photo3.jpg", "photo3_extra1.jpg", "photo3_extra2.jpg"]
             }
         };
 
-        // ==========================================
         // 孩子们（玩偶）数据配置
-        // ==========================================
         const kidsData = {
             pangdudu: {
                 name: "胖嘟嘟 🐱",
-                desc: "家里最稳重（也最胖）的崽,性别公身高5cm生日2026.9.16爱好吃特点很胖邮箱无种族猫🐱幼年",
+                desc: "💡 简介：家里最稳重（也最胖）的崽\n🐾 种族：猫🐱（幼年）｜性别：公｜身高：5cm\n🎂 生日：2026.9.16\n❤️ 爱好：吃｜特点：很胖｜邮箱：无",
                 images: ["pangdudu1.jpg", "pangdudu2.jpg"]
             },
             kuer: {
                 name: "库儿 🧸",
-                desc: "生日：2026.4.28性别公爱好看游戏直播特点很萌 ",
+                desc: "🎂 生日：2026.4.28｜性别：公\n❤️ 爱好：看游戏直播｜特点：很萌",
                 images: ["kuer1.jpg", "kuer2.jpg", "kuer3.jpg"]
             },
             bode: {
                 name: "博德兄弟 🐧🐧",
-                desc: "博德1性别雄生日2026.6.28爱好拍表情包特点歪嘴🫤邮箱无种族🐦幼年,博德2性别雄生日2026 9.16爱好学习特点可以移动尾巴邮箱无种族🐦幼年",
-                images: ["bode1.jpg","bode2.jpg"]
+                desc: "【博德 1】\n🐾 种族：🐦（幼年）｜性别：雄｜生日：2026.6.28\n❤️ 爱好：拍表情包｜特点：歪嘴🫤｜邮箱：无\n\n【博德 2】\n🐾 种族：🐦（幼年）｜性别：雄｜生日：2026.9.16\n❤️ 爱好：学习｜特点：可以移动尾巴｜邮箱：无",
+                images: ["bode1.jpg", "bode2.jpg"]
             },
             xiaohuoren: {
                 name: "小火人 🔥",
                 desc: "",
-                images: ["xiaohuoren1.jpg","xiaohuoren2.jpg"]
+                images: ["xiaohuoren1.jpg", "xiaohuoren2.jpg"]
             },
             suki: {
                 name: "suki 😻",
@@ -376,7 +379,7 @@
             const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
             const minutes = Math.floor((diff / 1000 / 60) % 60);
             const seconds = Math.floor((diff / 1000) % 60);
-            document.getElementById("time-elapsed").innerHTML = 
+            document.getElementById("time-elapsed").textContent =
                 `${days} 天 ${hours} 小时 ${minutes} 分钟 ${seconds} 秒`;
         }
         setInterval(updateTimer, 1000);
@@ -385,13 +388,13 @@
         // 打开旅行相册
         function openAlbum(category) {
             const album = albumsData[category];
-            showModal(album.title, "", album.images);
+            if (album) showModal(album.title, "", album.images);
         }
 
         // 打开玩偶主页
         function openKid(kidKey) {
             const kid = kidsData[kidKey];
-            showModal(kid.name, kid.desc, kid.images);
+            if (kid) showModal(kid.name, kid.desc, kid.images);
         }
 
         // 统一弹窗展示函数
@@ -401,39 +404,39 @@
             const descEl = document.getElementById("modal-desc");
             const gridEl = document.getElementById("modal-images");
 
-            titleEl.innerText = title;
+            titleEl.textContent = title;
 
             if (description && description.trim() !== "") {
-                descEl.innerText = description;
+                descEl.textContent = description;
                 descEl.style.display = "block";
             } else {
                 descEl.style.display = "none";
             }
-            
+
             gridEl.innerHTML = "";
             images.forEach(imgSrc => {
                 const img = document.createElement("img");
                 img.src = imgSrc;
-                img.alt = "照片";
-                img.onerror = function() {
-                    this.style.background = "#fff0f3";
-                    this.alt = "（图片待上传）";
-                };
+                img.alt = title;
                 img.onclick = function() {
                     openLightbox(imgSrc);
+                };
+                img.onerror = function() {
+                    this.onclick = null;
+                    this.style.cursor = "default";
+                    this.alt = "（图片待上传）";
                 };
                 gridEl.appendChild(img);
             });
 
             modal.style.display = "flex";
+            document.body.style.overflow = "hidden";
         }
 
         // 关闭弹窗
-        function closeModal(event) {
+        function closeModal() {
             document.getElementById("modal").style.display = "none";
-        }
-        function closeModalDirect() {
-            document.getElementById("modal").style.display = "none";
+            document.body.style.overflow = "";
         }
 
         // 打开大图预览
@@ -448,6 +451,18 @@
         function closeLightbox() {
             document.getElementById("lightbox-modal").style.display = "none";
         }
+
+        // 支持按 Esc 键关闭弹窗
+        document.addEventListener("keydown", function(e) {
+            if (e.key === "Escape") {
+                const lightbox = document.getElementById("lightbox-modal");
+                if (lightbox.style.display === "flex") {
+                    closeLightbox();
+                } else {
+                    closeModal();
+                }
+            }
+        });
     </script>
 </body>
 </html>
