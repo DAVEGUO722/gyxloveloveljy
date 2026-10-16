@@ -136,7 +136,7 @@
             transform: translateY(-2px);
         }
 
-        /* 通用弹窗样式（相册 & 玩偶介绍） */
+        /* 通用弹窗样式 */
         .modal {
             display: none;
             position: fixed;
@@ -145,56 +145,28 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.85);
+            background-color: rgba(0, 0, 0, 0.82);
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            padding: 20px;
+            padding: 16px;
         }
         .modal-content {
-            background: white;
-            padding: 30px 24px;
-            border-radius: 15px;
-            max-width: 600px;
+            background: #fffafa;
+            padding: 28px 22px;
+            border-radius: 20px;
+            max-width: 620px;
             width: 100%;
-            max-height: 85vh;
+            max-height: 88vh;
             overflow-y: auto;
             position: relative;
             text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
         }
         .modal-content h2 {
             color: #ff477e;
-            margin-bottom: 12px;
-        }
-        .modal-desc {
-            color: #555;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-            line-height: 1.7;
-            background: #fff8f9;
-            border: 1px solid #ffe0e6;
-            padding: 12px 16px;
-            border-radius: 10px;
-            text-align: left;
-            white-space: pre-line;
-        }
-        .modal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 220px));
-            justify-content: center;
-            gap: 12px;
-        }
-        .modal-grid img {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.2s;
-            background: #fff0f3;
-        }
-        .modal-grid img:hover {
-            transform: scale(1.03);
+            margin-bottom: 16px;
+            font-size: 1.5rem;
         }
         .close-btn {
             position: absolute;
@@ -204,9 +176,225 @@
             color: #aaa;
             cursor: pointer;
             line-height: 1;
+            z-index: 10;
         }
         .close-btn:hover {
-            color: #333;
+            color: #ff477e;
+        }
+
+        /* ==========================================
+           萌宠身份证卡片样式 (ID Card)
+           ========================================== */
+        #modal-cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+        .id-card {
+            background: linear-gradient(135deg, #fff0f3 0%, #ffffff 65%, #fff5f7 100%);
+            border: 2px solid #ffb3c6;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(255, 92, 138, 0.12);
+            position: relative;
+            text-align: left;
+        }
+        /* 右下角防伪水印 */
+        .id-card::after {
+            content: "🐾";
+            position: absolute;
+            right: 12px;
+            bottom: 6px;
+            font-size: 3.6rem;
+            opacity: 0.08;
+            pointer-events: none;
+            transform: rotate(-15deg);
+        }
+        .id-card-header {
+            background: linear-gradient(90deg, #ff5c8a, #ff8da1);
+            color: white;
+            padding: 7px 16px;
+            font-size: 0.78rem;
+            font-weight: bold;
+            letter-spacing: 0.8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .id-card-body {
+            display: flex;
+            padding: 18px 16px 14px;
+            gap: 18px;
+            align-items: center;
+        }
+        /* 头像框区域 */
+        .id-avatar-wrap {
+            position: relative;
+            flex-shrink: 0;
+        }
+        .id-avatar-box {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            border: 3px solid #ff758c;
+            background: #ffe5ec;
+            box-shadow: 0 4px 10px rgba(255, 71, 126, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.6rem;
+            overflow: hidden;
+            position: relative;
+        }
+        .id-avatar-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+            transition: transform 0.25s;
+        }
+        .id-avatar-box img:hover {
+            transform: scale(1.08);
+        }
+        .id-avatar-badge {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            background: #fff;
+            border: 2px solid #ffb3c6;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        /* 右侧档案信息 */
+        .id-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .id-name-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .id-name {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #d6336c;
+        }
+        /* 小标签样式 */
+        .id-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+        .id-tag {
+            background: #ffe3ec;
+            color: #ff477e;
+            border: 1px solid #ffc2d1;
+            padding: 2px 10px;
+            border-radius: 999px;
+            font-size: 0.76rem;
+            font-weight: 600;
+        }
+        /* 属性网格 */
+        .id-fields {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px 12px;
+            background: rgba(255, 255, 255, 0.75);
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px dashed #ffc2d1;
+        }
+        .id-field {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: #444;
+        }
+        .id-field-label {
+            color: #ff5c8a;
+            font-weight: 600;
+            margin-right: 4px;
+        }
+        /* 底部签名/简介栏 */
+        .id-bio {
+            margin: 0 16px 14px;
+            padding: 8px 12px;
+            background: #fff0f5;
+            border-left: 3px solid #ff5c8a;
+            border-radius: 6px;
+            font-size: 0.84rem;
+            color: #666;
+        }
+
+        /* 相册标题分割线 */
+        .gallery-divider {
+            font-size: 0.88rem;
+            color: #ff5c8a;
+            font-weight: bold;
+            margin: 6px 0 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .gallery-divider::before,
+        .gallery-divider::after {
+            content: "";
+            height: 1px;
+            width: 45px;
+            background: #ffc2d1;
+        }
+
+        /* 照片网格 */
+        .modal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 180px));
+            justify-content: center;
+            gap: 12px;
+        }
+        .modal-grid img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            background: #fff0f3;
+            border: 2px solid #fff;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+        }
+        .modal-grid img:hover {
+            transform: scale(1.04);
+            box-shadow: 0 6px 15px rgba(255, 71, 126, 0.2);
+        }
+
+        /* 手机端自适应：小屏幕下头像居中置顶 */
+        @media (max-width: 480px) {
+            .id-card-body {
+                flex-direction: column;
+                text-align: center;
+                padding: 16px 12px 12px;
+            }
+            .id-name-row, .id-tags {
+                justify-content: center;
+            }
+            .id-fields {
+                text-align: left;
+                grid-template-columns: 1fr;
+            }
         }
 
         /* 大图预览弹窗 */
@@ -290,6 +478,8 @@
                 <span class="kid-tag" onclick="openKid('suki')">suki</span>
                 <span class="kid-tag" onclick="openKid('jiyi')">吉伊</span>
                 <span class="kid-tag" onclick="openKid('kapibala')">卡皮巴拉</span>
+                <span class="kid-tag" onclick="openKid('kapibala')">花小美</span>
+                <span class="kid-tag" onclick="openKid('kapibala')">小多</span>
             </div>
         </footer>
     </div>
@@ -299,7 +489,11 @@
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="close-btn" onclick="closeModal()">&times;</span>
             <h2 id="modal-title">标题</h2>
-            <div id="modal-desc" class="modal-desc" style="display: none;"></div>
+            <!-- 萌宠身份证容器 -->
+            <div id="modal-cards-container" style="display: none;"></div>
+            <!-- 相册分割标题 -->
+            <div id="gallery-divider" class="gallery-divider" style="display: none;">📸 生活照写真</div>
+            <!-- 照片网格 -->
             <div class="modal-grid" id="modal-images"></div>
         </div>
     </div>
@@ -311,7 +505,9 @@
     </div>
 
     <script>
+        // ==========================================
         // 旅行相册数据配置
+        // ==========================================
         const albumsData = {
             first: {
                 title: "first trip ✈️ izu 相册",
@@ -331,41 +527,162 @@
             }
         };
 
-        // 孩子们（玩偶）数据配置
+        // ==========================================
+        // 孩子们（玩偶身份证）数据配置
+        // ==========================================
         const kidsData = {
             pangdudu: {
-                name: "胖嘟嘟 🐱",
-                desc: "💡 简介：家里最稳重（也最胖）的崽\n🐾 种族：猫🐱（幼年）｜性别：公｜身高：5cm\n🎂 生日：2026.9.16\n❤️ 爱好：吃｜特点：很胖｜邮箱：无",
+                title: "胖嘟嘟的id card 🐱",
+                cards: [
+                    {
+                        idNo: "DJ-001",
+                        name: "胖嘟嘟",
+                        emoji: "🐱",
+                        avatar: "pangdudu1.jpg",
+                        tags: ["🐱 猫族·幼年", "♂ 公", "📏 身高 5cm"],
+                        fields: [
+                            { label: "🎂 生日", value: "2026.9.16" },
+                            { label: "❤️ 爱好", value: "吃" },
+                            { label: "✨ 特点", value: "很胖" },
+                            { label: "📫 邮箱", value: "无" }
+                        ],
+                        bio: "💡 家里最稳重（也最胖）的崽"
+                    }
+                ],
                 images: ["pangdudu1.jpg", "pangdudu2.jpg"]
             },
             kuer: {
-                name: "库儿 🧸",
-                desc: "🎂 生日：2026.4.28｜性别：公\n❤️ 爱好：看游戏直播｜特点：很萌",
+                title: "库儿的id card 🧸",
+                cards: [
+                    {
+                        idNo: "DJ-002",
+                        name: "库儿",
+                        emoji: "🧸",
+                        avatar: "kuer1.jpg",
+                        tags: ["🧸 小熊族", "♂ 公"],
+                        fields: [
+                            { label: "🎂 生日", value: "2026.4.28" },
+                            { label: "❤️ 爱好", value: "看游戏直播" },
+                            { label: "✨ 特点", value: "很萌" },
+                            { label: "📫 邮箱", value: "无" }
+                        ],
+                        bio: "💡 看游戏直播的超萌乖宝宝"
+                    }
+                ],
                 images: ["kuer1.jpg", "kuer2.jpg", "kuer3.jpg"]
             },
             bode: {
-                name: "博德兄弟 🐧🐧",
-                desc: "【博德 1】\n🐾 种族：🐦（幼年）｜性别：雄｜生日：2026.6.28\n❤️ 爱好：拍表情包｜特点：歪嘴🫤｜邮箱：无\n\n【博德 2】\n🐾 种族：🐦（幼年）｜性别：雄｜生日：2026.9.16\n❤️ 爱好：学习｜特点：可以移动尾巴｜邮箱：无",
+                title: "博德兄弟的id cards 🐧🐧",
+                cards: [
+                    {
+                        idNo: "DJ-003A",
+                        name: "博德 1号",
+                        emoji: "🐧",
+                        avatar: "bode1.jpg",
+                        tags: ["🐦 鸟族·幼年", "♂ 雄", "😎 哥哥"],
+                        fields: [
+                            { label: "🎂 生日", value: "2026.6.28" },
+                            { label: "❤️ 爱好", value: "拍表情包" },
+                            { label: "✨ 特点", value: "歪嘴 🫤" },
+                            { label: "📫 邮箱", value: "无" }
+                        ],
+                        bio: "💡 歪嘴 呆毛很硬"
+                    },
+                    {
+                        idNo: "DJ-003B",
+                        name: "博德 2号",
+                        emoji: "🐧",
+                        avatar: "bode2.jpg",
+                        tags: ["🐦 鸟族·幼年", "♂ 雄", "📚 弟弟"],
+                        fields: [
+                            { label: "🎂 生日", value: "2026.9.16" },
+                            { label: "❤️ 爱好", value: "学习" },
+                            { label: "✨ 特点", value: "可以移动尾巴" },
+                            { label: "📫 邮箱", value: "无" }
+                        ],
+                        bio: "💡 尾巴会动"
+                    }
+                ],
                 images: ["bode1.jpg", "bode2.jpg"]
             },
             xiaohuoren: {
-                name: "小火人 🔥",
-                desc: "",
+                title: "小火人的id card 🔥",
+                cards: [
+                    {
+                        idNo: "DJ-004",
+                        name: "小火人",
+                        emoji: "🔥",
+                        avatar: "xiaohuoren1.jpg",
+                        tags: ["🔥 火精灵", "✨ 萌萌哒"],
+                        fields: [
+                            { label: "🎂 生日", value: "待录入" },
+                            { label: "❤️ 爱好", value: "待录入" },
+                            { label: "✨ 特点", value: "热情似火" },
+                            { label: "📫 邮箱", value: "无" }
+                        ],
+                        bio: "💡 家族评价：时刻保持红红火火的活力小崽"
+                    }
+                ],
                 images: ["xiaohuoren1.jpg", "xiaohuoren2.jpg"]
             },
             suki: {
-                name: "suki 😻",
-                desc: "",
+                title: "suki 的id card 😻",
+                cards: [
+                    {
+                        idNo: "DJ-005",
+                        name: "suki",
+                        emoji: "😻",
+                        avatar: "suki1.jpg",
+                        tags: ["😻 甜心崽", "✨ 可爱担当"],
+                        fields: [
+                            { label: "🎂 生日", value: "待录入" },
+                            { label: "❤️ 爱好", value: "待录入" },
+                            { label: "✨ 特点", value: "超级粘人" },
+                            { label: "📫 邮箱", value: "无" }
+                        ],
+                        bio: "💡 乖乖的"
+                    }
+                ],
                 images: ["suki1.jpg"]
             },
             jiyi: {
-                name: "吉伊 ✨",
-                desc: "",
+                title: "吉伊的id card ✨",
+                cards: [
+                    {
+                        idNo: "DJ-006",
+                        name: "吉伊",
+                        emoji: "✨",
+                        avatar: "jiyi1.jpg",
+                        tags: ["🐹 小可爱族", "✨ 治愈系"],
+                        fields: [
+                            { label: "🎂 生日", value: "待录入" },
+                            { label: "❤️ 爱好", value: "待录入" },
+                            { label: "✨ 特点", value: "软萌治愈" },
+                            { label: "📫 邮箱", value: "无" }
+                        ],
+                        bio: "💡 有自己的讨伐棒"
+                    }
+                ],
                 images: ["jiyi1.jpg"]
             },
             kapibala: {
-                name: "卡皮巴拉 🍊",
-                desc: "",
+                title: "卡皮巴拉的居民档案 🍊",
+                cards: [
+                    {
+                        idNo: "DJ-007",
+                        name: "卡皮巴拉",
+                        emoji: "🍊",
+                        avatar: "kapibala1.jpg",
+                        tags: ["🦫 水豚族", "🧘 情绪稳定"],
+                        fields: [
+                            { label: "🎂 生日", value: "待录入" },
+                            { label: "❤️ 爱好", value: "顶橘子发呆" },
+                            { label: "✨ 特点", value: "情绪极其稳定" },
+                            { label: "📫 邮箱", value: "无" }
+                        ],
+                        bio: "💡 萌"
+                    }
+                ],
                 images: ["kapibala1.jpg"]
             }
         };
@@ -388,31 +705,74 @@
         // 打开旅行相册
         function openAlbum(category) {
             const album = albumsData[category];
-            if (album) showModal(album.title, "", album.images);
+            if (album) renderModal(album.title, [], album.images);
         }
 
-        // 打开玩偶主页
+        // 打开玩偶身份证弹窗
         function openKid(kidKey) {
             const kid = kidsData[kidKey];
-            if (kid) showModal(kid.name, kid.desc, kid.images);
+            if (kid) renderModal(kid.title, kid.cards, kid.images);
         }
 
-        // 统一弹窗展示函数
-        function showModal(title, description, images) {
+        // 渲染弹窗（兼容旅行相册与玩偶身份证）
+        function renderModal(title, cards, images) {
             const modal = document.getElementById("modal");
             const titleEl = document.getElementById("modal-title");
-            const descEl = document.getElementById("modal-desc");
+            const cardsContainer = document.getElementById("modal-cards-container");
+            const dividerEl = document.getElementById("gallery-divider");
             const gridEl = document.getElementById("modal-images");
 
             titleEl.textContent = title;
+            cardsContainer.innerHTML = "";
 
-            if (description && description.trim() !== "") {
-                descEl.textContent = description;
-                descEl.style.display = "block";
+            // 如果有身份证数据，生成萌宠身份证卡片
+            if (cards && cards.length > 0) {
+                cards.forEach(card => {
+                    const tagsHtml = (card.tags || [])
+                        .map(tag => `<span class="id-tag">${tag}</span>`)
+                        .join("");
+
+                    const fieldsHtml = (card.fields || [])
+                        .map(f => `<div class="id-field"><span class="id-field-label">${f.label}：</span>${f.value}</div>`)
+                        .join("");
+
+                    const cardEl = document.createElement("div");
+                    cardEl.className = "id-card";
+                    cardEl.innerHTML = `
+                        <div class="id-card-header">
+                            <span>🪪 DAVE & JANE FAMILY ID CARD</span>
+                            <span>NO. ${card.idNo}</span>
+                        </div>
+                        <div class="id-card-body">
+                            <div class="id-avatar-wrap">
+                                <div class="id-avatar-box">
+                                    <span>${card.emoji || "🧸"}</span>
+                                    <img src="${card.avatar}" alt="${card.name}"
+                                         onclick="openLightbox('${card.avatar}')"
+                                         onerror="this.style.display='none'">
+                                </div>
+                                <div class="id-avatar-badge">${card.emoji || "🧸"}</div>
+                            </div>
+                            <div class="id-info">
+                                <div class="id-name-row">
+                                    <span class="id-name">${card.name}</span>
+                                </div>
+                                <div class="id-tags">${tagsHtml}</div>
+                                <div class="id-fields">${fieldsHtml}</div>
+                            </div>
+                        </div>
+                        ${card.bio ? `<div class="id-bio">${card.bio}</div>` : ""}
+                    `;
+                    cardsContainer.appendChild(cardEl);
+                });
+                cardsContainer.style.display = "flex";
+                dividerEl.style.display = "flex";
             } else {
-                descEl.style.display = "none";
+                cardsContainer.style.display = "none";
+                dividerEl.style.display = "none";
             }
 
+            // 渲染下方照片网格
             gridEl.innerHTML = "";
             images.forEach(imgSrc => {
                 const img = document.createElement("img");
@@ -466,3 +826,4 @@
     </script>
 </body>
 </html>
+
