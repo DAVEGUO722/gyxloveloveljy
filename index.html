@@ -96,11 +96,25 @@
             transition: background 0.2s, color 0.2s;
             user-select: none;
             outline: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
         }
         .couple-btn:hover {
             background: #ff477e;
             color: white;
         }
+        .couple-btn:hover .click-count {
+            color: #fff0f3;
+        }
+        /* 按钮下方的计数小字 */
+        .click-count {
+            font-size: 0.75rem;
+            color: #ff5c8a;
+            font-weight: normal;
+        }
+
         /* 点击时的弹跳动画类 */
         .bounce-anim {
             animation: bounceEffect 0.4s ease;
@@ -511,15 +525,21 @@
 <body>
 
     <div class="container">
-        <!-- 带有情侣弹跳按钮的标题栏 -->
+        <!-- 带有情侣弹跳按钮与历史计数器的标题栏 -->
         <div class="header-box">
-            <button class="couple-btn" id="dave-btn" onclick="triggerCoupleAction('dave')">👦 郭亚轩 (Dave)</button>
+            <button class="couple-btn" id="dave-btn" onclick="triggerCoupleAction('dave')">
+                <span>👦 郭亚轩 (Dave)</span>
+                <span class="click-count">已被贴贴 <span id="dave-count">0</span> 次</span>
+            </button>
             <h1>Dave ❤️ Jane<br>郭亚轩 ❤️ 李佳仪</h1>
-            <button class="couple-btn" id="jane-btn" onclick="triggerCoupleAction('jane')">👧 李佳仪 (Jane)</button>
+            <button class="couple-btn" id="jane-btn" onclick="triggerCoupleAction('jane')">
+                <span>👧 李佳仪 (Jane)</span>
+                <span class="click-count">已被贴贴 <span id="jane-count">0</span> 次</span>
+            </button>
         </div>
 
         <!-- 甜蜜互动气泡提示 -->
-        <div id="sweet-tip">✨ 谁乖谁萌谁按按钮 ✨</div>
+        <div id="sweet-tip">✨ 点击按钮记录你们的专属甜蜜次数 ✨</div>
 
         <p class="subtitle">老婆我现在肚子好饿你还在那上课</p>
 
@@ -597,7 +617,7 @@
 
     <script>
         // ==========================================
-        // 顶部情侣按钮点击弹跳与气泡互动
+        // 顶部情侣按钮点击弹跳、历史计数与气泡互动
         // ==========================================
         const daveTips = [
             "👦 轩轩和美美吃汉堡 🍔",
@@ -612,6 +632,13 @@
             "👧 美美宣布：爱轩轩一辈子 🐱"
         ];
 
+        // 初始化读取历史点击次数
+        let daveClicks = parseInt(localStorage.getItem('dave_clicks') || '0');
+        let janeClicks = parseInt(localStorage.getItem('jane_clicks') || '0');
+        
+        document.getElementById('dave-count').textContent = daveClicks;
+        document.getElementById('jane-count').textContent = janeClicks;
+
         function triggerCoupleAction(person) {
             const btn = document.getElementById(person + "-btn");
             const tipEl = document.getElementById("sweet-tip");
@@ -621,12 +648,23 @@
             void btn.offsetWidth; // 触发重绘
             btn.classList.add("bounce-anim");
 
+            // 更新历史计数并保存到浏览器缓存
+            if (person === 'dave') {
+                daveClicks++;
+                document.getElementById('dave-count').textContent = daveClicks;
+                localStorage.setItem('dave_clicks', daveClicks);
+            } else {
+                janeClicks++;
+                document.getElementById('jane-count').textContent = janeClicks;
+                localStorage.setItem('jane_clicks', janeClicks);
+            }
+
             // 随机显示对应的情话气泡
             const tips = person === 'dave' ? daveTips : janeTips;
             const randomTip = tips[Math.floor(Math.random() * tips.length)];
-            tipEl.textContent = randomTip;
+            tipEl.textContent = randomTip + ` (累计 ${person === 'dave' ? daveClicks : janeClicks} 次)`;
 
-            // 顺便在点击位置附近多飞出两个爱心
+            // 在点击位置附近飞出爱心
             for(let i=0; i<3; i++) {
                 setTimeout(createFallingHeart, i * 120);
             }
@@ -656,7 +694,6 @@
             setTimeout(() => { heart.remove(); }, 5500);
         }
 
-        // 每隔 350 毫秒生成一个爱心
         setInterval(createFallingHeart, 350);
 
         // ==========================================
